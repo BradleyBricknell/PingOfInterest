@@ -14,7 +14,7 @@ public class MongoTests
 {
     private MongoController _mongoController;
 
-    private Ping pingDocument;
+    private Ping _ping;
 
     @Before
     public void Setup()
@@ -32,9 +32,9 @@ public class MongoTests
     public void assertSinglePingCanBeInserted() throws Exception
     {
         assertEquals(_mongoController.PingCount(), 0);
-        pingDocument = new Ping(PingType.ATM, 50.8280890, -0.131488);
+        _ping = new Ping(PingType.ATM, 50.8280890, -0.131488);
 
-        _mongoController.InsertPing(pingDocument);
+        _mongoController.InsertPing(_ping);
 
         assertEquals(_mongoController.PingCount(), 1);
     }
@@ -42,6 +42,6 @@ public class MongoTests
     @After
     public void TearDown()
     {
-     _mongoController.DeletePing(pingDocument);
+     _mongoController.DeletePing(_ping);
     }
 }
