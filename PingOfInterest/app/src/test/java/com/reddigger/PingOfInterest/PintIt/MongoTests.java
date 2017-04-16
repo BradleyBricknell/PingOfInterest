@@ -39,6 +39,12 @@ public class MongoTests
         assertEquals(_mongoController.PingCount(), 1);
     }
 
+    @Test
+    public void assertSinglePingCanBeFoundInCollection() throws Exception
+    {
+
+    }
+
     @After
     public void TearDown()
     {
