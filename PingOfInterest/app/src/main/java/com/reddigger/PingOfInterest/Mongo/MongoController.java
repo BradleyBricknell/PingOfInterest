@@ -5,9 +5,21 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.reddigger.PingOfInterest.Model.Ping;
+import com.reddigger.PingOfInterest.Model.PingType;
 
 import org.bson.Document;
+
+import java.util.ArrayList;
+import java.util.FormatFlagsConversionMismatchException;
+import java.util.List;
+import java.util.ListIterator;
+
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.gt;
+import static com.mongodb.client.model.Filters.lt;
 
 public class MongoController
 {
@@ -28,9 +40,9 @@ public class MongoController
     }
 
 
-    public FindIterable FindPings(long lon, long lat) // radius from position?
+    public FindIterable FindSurroundingPings(long lon, long lat) // radius from position?
     {
-        return null;
+        return _pingCollection.find();
     }
 
     public void InsertPing(Ping ping)
@@ -56,5 +68,36 @@ public class MongoController
     public int PingCount()
     {
         return (int)_pingCollection.count();
+    }
+
+    public List<Ping> FindSurroundingPings(double lati, double longi, int km){
+        double lon1,lon2,lat1,lat2;
+
+        double R = 6371; // earth radius in km 26.447521
+
+        double radius = 0.75 * km; // km
+
+        List<Ping> returnedPings = new ArrayList<>();
+
+        lon1 =    (longi + Math.toDegrees(radius / R / Math.cos(Math.toRadians(lati))));
+        lat1 =   (lati - Math.toDegrees(radius / R));
+
+        lon2 =   (longi - Math.toDegrees(radius / R / Math.cos(Math.toRadians(lati))));
+        lat2 =   (lati + Math.toDegrees(radius / R));
+
+
+     ArrayList<Document> pings = (ArrayList<Document>) _pingCollection.find().filter(and(
+                     gt("lat", lat1),
+                     lt("lat", lat2),
+                     lt("long", lon1),
+                     gt("long", lon2)))
+             .into(new ArrayList<Document>());
+
+        for (Document p : pings )
+        {
+           returnedPings.add(new Ping(PingType.valueOf(p.get("type").toString()),  p.getDouble("lat"), p.getDouble("long")));
+        }
+
+        return returnedPings;
     }
 }
