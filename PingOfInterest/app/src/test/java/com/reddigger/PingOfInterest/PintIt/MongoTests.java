@@ -60,6 +60,15 @@ public class MongoTests
         assertTrue(SamePings(pingCloseBy, validPing));
     }
 
+    @Test
+    public void assertPingsLocationOutsideOfTheBoundingBoxAreNotReturned()
+    {
+        _mongoController.InsertPing(new Ping(PingType.BAR, 51.802440, -0.231123213));
+        _mongoController.InsertPing(new Ping(PingType.BAR, 49.802440, -1.231123213));
+
+        assertTrue(_mongoController.FindSurroundingPings(50.828089, -0.131488, 1).size() == 0);
+    }
+
     @After
     public void TearDown()
     {

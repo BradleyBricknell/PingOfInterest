@@ -2,22 +2,17 @@ package com.reddigger.PingOfInterest.Mongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import com.reddigger.PingOfInterest.Model.Ping;
 import com.reddigger.PingOfInterest.Model.PingType;
 
 import org.bson.Document;
 
 import java.util.ArrayList;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
-import java.util.ListIterator;
 
 import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.gt;
 import static com.mongodb.client.model.Filters.lt;
 
@@ -37,12 +32,6 @@ public class MongoController
     public MongoCollection GetPingCollection()
     {
         return _pingCollection;
-    }
-
-
-    public FindIterable FindSurroundingPings(long lon, long lat) // radius from position?
-    {
-        return _pingCollection.find();
     }
 
     public void InsertPing(Ping ping)
@@ -94,9 +83,7 @@ public class MongoController
              .into(new ArrayList<Document>());
 
         for (Document p : pings )
-        {
            returnedPings.add(new Ping(PingType.valueOf(p.get("type").toString()),  p.getDouble("lat"), p.getDouble("long")));
-        }
 
         return returnedPings;
     }
