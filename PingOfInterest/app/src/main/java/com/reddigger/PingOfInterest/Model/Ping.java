@@ -6,14 +6,14 @@ package com.reddigger.PingOfInterest.Model;
 
 public class Ping
 {
-    public Ping(PingType type, double longitude, double latitude)
+    public Ping(PingType type, double latitude, double longitude)
     {
         Type = type;
         Longitude = longitude;
         Latitude = latitude;
     }
 
-    public Ping(PingType type, double longitude, double latitude, boolean validated)
+    public Ping(PingType type, double latitude, double longitude, boolean validated)
     {
         Type = type;
         Longitude = longitude;
