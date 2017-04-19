@@ -1,4 +1,4 @@
-package com.reddigger.PingOfInterest.PintIt;
+package com.reddigger.PingOfInterest.PingIt;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

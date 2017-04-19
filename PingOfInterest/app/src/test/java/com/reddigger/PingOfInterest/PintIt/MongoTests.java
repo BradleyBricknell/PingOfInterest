@@ -1,4 +1,4 @@
-package com.reddigger.PingOfInterest.PintIt;
+package com.reddigger.PingOfInterest.PingIt;
 
 import com.reddigger.PingOfInterest.Model.Ping;
 import com.reddigger.PingOfInterest.Model.PingType;

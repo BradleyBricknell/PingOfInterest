@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.reddigger.PingOfInterest.PintIt.PingIt">
+    tools:context="com.reddigger.PingOfInterest.PingIt.PingIt">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,24 +20,17 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_menu" />
+    <include layout="@layout/content_menu"
+        android:id="@+id/include" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/getPings"
-        android:layout_width="wrap_content"
+        android:layout_width="72dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_info" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/pingIt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        app:srcCompat="@android:drawable/stat_sys_upload" />
 
 
 </android.support.design.widget.CoordinatorLayout>
